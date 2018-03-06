@@ -16,6 +16,8 @@ def decode(number):
 	# Convert the number back into a letter
 	return chr(number+0x40) if number is not 27 else '-'
 
+# This function splits text into identical-sized blocks.
+
 def intoBlocks(blocksize, target):
 	# List of blocks
 	blocklist = []
@@ -29,6 +31,8 @@ def intoBlocks(blocksize, target):
 		target = rest
 	# Return the list
 	return blocklist
+
+# These function encode and decode blocks of text.
 
 def encodeBlock(blocksize, block):
 	res = 0
@@ -48,6 +52,12 @@ def decodeBlock(block):
 
 # Modular addition
 
+# These ciphers encrypt and decrypt blocks of encoded values.
+# They use modular addition, which calculates A + K (mod M)
+# The value can be decrypted by doing A - K (mod M), but
+# this can also be stated as A + (M - K) (mod M), in other
+# words encrypting with the modular complement of the key.
+
 def additionencryptBlocks(key, modulus, blocks):
 	cipherblocks = []
 	for block in blocks:
@@ -55,8 +65,5 @@ def additionencryptBlocks(key, modulus, blocks):
 	return cipherblocks
 
 def additiondecryptBlocks(key, modulus, blocks):
-	# Subtracting in modular addition is the same as adding its modular complement.
 	inverse = modulus - key
 	return encryptBlocks(inverse, modulus, blocks)
-
-def 
