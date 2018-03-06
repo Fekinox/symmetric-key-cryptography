@@ -59,11 +59,33 @@ def decodeBlock(block):
 # words encrypting with the modular complement of the key.
 
 def additionencryptBlocks(key, modulus, blocks):
-	cipherblocks = []
-	for block in blocks:
-		cipherblocks += ((block + key) % modulus)
+	cipherblocks = [(block + key) % modulus for block in blocks]
 	return cipherblocks
 
 def additiondecryptBlocks(key, modulus, blocks):
 	inverse = modulus - key
 	return encryptBlocks(inverse, modulus, blocks)
+
+# Modular multiplication
+
+# This takes advantage of these two facts:
+# n-1 is congruent to -1 mod n
+# (n-1)^2 is congruent to (-1)^2 or 1 mod n
+# which makes n-1 the modular multiplicative inverse of
+# itself. We can use this to encrypt and decrypt information,
+# using the modulus as the key.
+
+def multiplicationencryptBlocks(modulus, blocks):
+	cipherblocks = [block * (modulus) for block in blocks]
+
+def multiplicationdecryptBlocks(modulus, blocks):
+	return multiplicationencryptBlocks(modulus, blocks)
+
+# Modular exponentiation
+
+# No decryption function is defined because it requires computation
+# of the discrete logarithm... which is kind of out of the scope
+# of this project.
+
+def exponentiationencryptBlocks(key, modulus, blocks):
+	cipherblocks - [pow(block, key, modulus) for block in blocks]
