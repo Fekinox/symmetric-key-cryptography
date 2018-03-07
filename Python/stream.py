@@ -38,13 +38,21 @@ def genRandomList(seed):
 # Maps each encoded number to each number in the list, and back.
 
 def encrypt(key, string):
+	print("Your plaintext:", string)
 	encodedString = encodeString(string)
+	print("Encoded string:", encodedString)
 	randlist = genRandomList(key)
 	encryptedString = [randlist[i-1] for i in encodedString]
-	return decodeString(encryptedString)
+	print("Encrypted string:", encryptedString)
+	decodedString = decodeString(encryptedString)
+	print("Decoded string:", decodedString)
 
 def decrypt(key, string):
+	print("Your plaintext:", string)
 	encodedString = encodeString(string)
+	print("Encoded string:", encodedString)
 	randlist = genRandomList(key)
 	decryptedString = [randlist.index(i)+1 for i in encodedString]
-	return decodeString(decryptedString)
+	print("Decrypted string:", decryptedString)
+	decodedString = decodeString(decryptedString)
+	print("Decoded string:", decodedString)
